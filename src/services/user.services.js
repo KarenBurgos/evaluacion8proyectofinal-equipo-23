@@ -50,11 +50,11 @@ services.createPost = async (token, title, description, image) => {
             description: description,
             image: image
         })
-    })
+    });
     
     const data = await response.json();
     console.log(data);
-}
+};
 
 
 export default services;
