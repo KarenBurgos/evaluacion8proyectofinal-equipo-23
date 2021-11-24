@@ -1,31 +1,84 @@
-import { useUserContext } from '../../contexts/UserContext'
-import { useNavigate } from 'react-router-dom'
-import ADMIN from '../../assets/img/soyadmin-img.jpg'
+import { useUserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
+import ADMIN from '../../assets/img/soyadmin-img.jpg';
+import { useState } from 'react';
 
 export default function Admin() {
-    const navigate = useNavigate()
-    const { logout } = useUserContext()
+    const navigate = useNavigate();
+    const { logout, post } = useUserContext();
+    const [title, setTitle] = useState ("");
+    const [description, setDescription] = useState("");
+    const [image, setImage] = useState("");
+    const [error, setError] = useState(false);
 
     const logoutHandler = () => {
         logout()
         navigate("/login")
     }
 
+    const onChange = (e, save) => {
+        save(e.target.value)
+    }
+
+    const postHandler = (e) => {
+        e.preventDefault();
+
+        console.log(title);
+        console.log(description);
+        console.log(image);
+
+        // const posted = post(title, description, image);
+        // setError(!posted);
+        
+        setTitle("");
+        setDescription("");
+        setImage("");
+    }
+
     return (
-        <section className="flex gap-4 flex-col bg-gradient-to-r from-green-300 via-blue-300 to-indigo-300 lg:flex-row justify-around items-center p-6 lg:p-10 min-h-screen">
-            <div className="w-4/5 lg:w-1/2 gap-6 h-full flex flex-col justify-around items-center">
-                <h2 className="text-5xl lg:text-6xl font-extrabold text-white-800 text-center">Admin page</h2>
-                <h3 className="text-lg font-medium text-gray-700 text-center">Only users with the admin role can view this page</h3>
-
-                <p className="text-xl font-medium text-white-700 text-center mt-6">If you want to see this page you have to ask permission from the administrators of the application</p>
-
-                <button onClick={logoutHandler} className="mt-6 w-1/2 lg:w-1/3 transition rounded border border-blue-500 duration-300 ease-in-out text-lg text-extrabold uppercase bg-blue-500 hover:bg-blue-700 py-2 px-4 text-gray-100">Log out</button>
+        <section>
+            <header className="flex flex-row justify-end items-center">
+                <button onClick={logoutHandler} className=" m-4 transition rounded border border-pink-500 duration-300 ease-in-out text-sm text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
+                    Log out
+                </button>
+            </header>
+            <div className="flex flex-col justify-around items-center p-6">
+                <form onSubmit={postHandler} className="flex flex-col gap-y-5 p-6 w-3/5 bg-blue-50 shadow-lg">
+                    <h2 className="uppercase text-black font-monserrat font-black text-4xl mb-5 text-center">Crear un post</h2>
+                    {
+                        error && (<p className="w-full rounded p-4 text-center text-white font-roboto bg-red-600 select-none">
+                            Un error ha ocurrido en la creacion del post
+                        </p>)
+                    }
+                    <input 
+                        type="text" 
+                        className="font-bold w-full text-gray-700 bg-gray-300 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                        placeholder="titulo"
+                        value={title}
+                        onChange={(e) => onChange(e, setTitle)}
+                    />
+                    <input 
+                        type="text" 
+                        className="font-semibold w-full h-32 text-gray-700 bg-gray-200 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                        placeholder="descripción"
+                        value={description}
+                        onChange={(e) => onChange(e, setDescription)}
+                    />
+                    <input 
+                        type="text" 
+                        className="font-semibold w-full text-gray-700 bg-gray-200 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                        placeholder="url de la imagen"
+                        value={image}
+                        onChange={(e) => onChange(e, setImage)}
+                    />
+                    <button className="mt-6 mx-40 transition rounded border border-pink-500 duration-300 ease-in-out text-lg text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
+                        Post
+                    </button>
+                </form>
             </div>
-
-            <div className="w-4/5 lg:w-1/2 flex justify-center items-center">
-                <img className="w-4/5 rounded-lg" src={ADMIN} />
-            </div>
+                <div className="flex justify-center my-5">
+                    <img className="w-1/3" src={ADMIN} />
+                </div>
         </section>
-    )
-
-}
+    );
+};

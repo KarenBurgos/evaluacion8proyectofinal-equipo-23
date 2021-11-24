@@ -17,10 +17,10 @@ services.login = async (username, password) => {
     if (response.ok) {
         const data = await response.json();
         return data;
-    }
+    };
 
     return {};
-}
+};
 
 services.verifyToken = async (token) => {
     const response = await fetch(`${BASE_URL}/auth/whoami`, {
@@ -33,9 +33,27 @@ services.verifyToken = async (token) => {
     if (response.ok) {
         const data = await response.json();
         return data;
-    }
+    };
 
     return {};
+}
+
+services.createPost = async (token, title, description, image) => {
+    const response = await fetch(`${BASE_URL}/post/create`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            title: title,
+            description: description,
+            image: image
+        })
+    })
+    
+    const data = await response.json();
+    console.log(data);
 }
 
 
