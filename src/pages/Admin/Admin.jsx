@@ -1,6 +1,6 @@
 import ADMIN from '../../assets/img/soyadmin-img.jpg';
-import { Logout } from './Logout/Logout';
-import { Post } from './Post/Post';
+import { Logout } from '../../Components/User/Logout/Logout';
+import { Post } from '../../Components/Admin/Post/Post';
 
 export default function Admin() {
 

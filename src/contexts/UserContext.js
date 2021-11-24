@@ -59,6 +59,7 @@ export const UserProvider = (props) => {
         setTokenAll(undefined);
     }, []);
 
+    //no se si se debe utilizar usecallback o no, solo segui la logica de login
     const post = useCallback((title, description, image) => {
         const postAsync = async () => {
             let status = false;
@@ -81,13 +82,40 @@ export const UserProvider = (props) => {
         return postAsync();
     }, []);
 
+    /*
+    const myPost = useCallback( (limit, page) => {
+        const myPostAsync = async () => {
+            let status = false;
+            try {
+                const {data: dataRes} = await userService.getMyPost(token, limit, page);
+
+                // dataRes es un arreglo de post con toda la informacion
+                //deberia de usar foreach para mostrarlo ordenado
+
+                if (dataRes) {
+                    status = true;
+                    ////////////////////////
+                    console.log("userContext:")
+                    console.log(dataRes);
+                };
+            }
+            catch (error) {
+                return status;
+            }
+        };
+
+        return myPostAsync();
+    }, []);
+    */
+
     const value = useMemo(()=> ({
         token: token,
         user: user,
         login: login,
         logout: logout,
-        post: post
-    }), [token, user, login, logout, post]);
+        post: post,
+        //myPost: myPost
+    }), [token, user, login, logout, post/*, myPost*/]);
 
     return <UserContext.Provider value={value} {...props} />;
 }

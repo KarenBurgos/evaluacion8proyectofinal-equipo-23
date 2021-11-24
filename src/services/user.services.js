@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 const BASE_URL = "https://posts-pw2021.herokuapp.com/api/v1";
 
 const services = {};
@@ -36,7 +38,7 @@ services.verifyToken = async (token) => {
     };
 
     return {};
-}
+};
 
 services.createPost = async (token, title, description, image) => {
     const response = await fetch(`${BASE_URL}/post/create`, {
@@ -55,6 +57,28 @@ services.createPost = async (token, title, description, image) => {
     const data = await response.json();
     console.log(data);
 };
+
+/*
+services.getMyPost = async (token, limit = 15, page = 0) => {
+    const response = await fetch(`${BASE_URL}/post/owned?limit=${limit}&page=${page}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        
+        console.log("user.services:");
+        console.log(data);
+        //return data;
+        //const {data, page, pages, limit} = data;
+    };
+
+    return {};
+}
+*/
 
 
 export default services;

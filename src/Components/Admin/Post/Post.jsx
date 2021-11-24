@@ -21,8 +21,8 @@ export const Post = () => {
         console.log(image);
 
         //esto esta comentado por el momento para no hacer post de algo equivocado
-        const posted = await post(title, description, image);
-        setError(!posted);
+        // const posted = await post(title, description, image);
+        // setError(!posted);
         
         setTitle("");
         setDescription("");
@@ -35,7 +35,7 @@ export const Post = () => {
             <h2 className="uppercase text-black font-monserrat font-black text-4xl mb-5 text-center">Crear un post</h2>
             {
                 error && (<p className="w-full rounded p-4 text-center text-white font-roboto bg-red-600 select-none">
-                    Un error ha ocurrido en la creacion del post
+                    Un error ha ocurrido en la creacion del post 
                 </p>)
             }
             <input 
