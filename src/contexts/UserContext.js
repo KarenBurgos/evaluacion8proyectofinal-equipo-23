@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import userService from './../services/user.services';
 
@@ -82,31 +83,51 @@ export const UserProvider = (props) => {
         return postAsync();
     }, []);
 
-    /*
-    const myPost = useCallback( (limit, page) => {
-        const myPostAsync = async () => {
-            let status = false;
+    const allPost = useCallback( (limit, page) => {
+        const allPostAsync = async () => {
             try {
-                const {data: dataRes} = await userService.getMyPost(token, limit, page);
-
-                // dataRes es un arreglo de post con toda la informacion
-                //deberia de usar foreach para mostrarlo ordenado
-
-                if (dataRes) {
-                    status = true;
-                    ////////////////////////
-                    console.log("userContext:")
-                    console.log(dataRes);
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                const {data} = await userService.getAllPost(getToken(), limit, page);
+                
+                if (data) {
+                    // console.log("userContext data:")
+                    // console.log(data);
+                    return data;
                 };
             }
             catch (error) {
-                return status;
+                console.log("data undefined");
+                return data;
+            }
+        };
+
+        return allPostAsync();
+    }, []);
+    
+    const myPost = useCallback( (limit, page) => {
+        const myPostAsync = async () => {
+            try {
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                
+                /////////////////
+                const {data} = await userService.getMyPost(getToken(), limit, page);
+                if (data) {
+                    // console.log("userContext data:")
+                    // console.log(data);
+                    return data;
+                };
+            }
+            catch (error) {
+                console.log("data undefined");
+                return data;
             }
         };
 
         return myPostAsync();
     }, []);
-    */
+    
 
     const value = useMemo(()=> ({
         token: token,
@@ -114,11 +135,12 @@ export const UserProvider = (props) => {
         login: login,
         logout: logout,
         post: post,
-        //myPost: myPost
-    }), [token, user, login, logout, post/*, myPost*/]);
+        myPost: myPost,
+        allPost: allPost
+    }), [token, user, login, logout, post, myPost, allPost]);
 
     return <UserContext.Provider value={value} {...props} />;
-}
+};
 
 export const useUserContext = () => {
     const context = React.useContext(UserContext);
@@ -128,4 +150,28 @@ export const useUserContext = () => {
     }
 
     return context;
-}
+};
+
+
+//funciona en consola de buscador
+//develve data.data
+/*
+const myPost = () => {
+    const myPostAsync = async () => {
+        let status = false;
+        try {
+            const {data: dataRes} = await getAllPost();
+
+            if (dataRes) {
+                status = true;
+                return dataRes;
+            };
+        }
+        catch (error) {
+            return status;
+        }
+    };
+
+    return myPostAsync();
+};
+*/

@@ -2,6 +2,7 @@ import { useUserContext } from '../../contexts/UserContext'
 import { useNavigate } from 'react-router-dom'
 import user from '../../assets/img/icono-user.jpg'
 import { Logout } from '../../Components/User/Logout/Logout'
+import { AllPosts } from './../../Components/User/AllPosts/AllPosts'
 
 export default function User() {
     const navigate = useNavigate()
@@ -27,6 +28,10 @@ export default function User() {
 
                 <div className="w-4/5 lg:w-1/2 flex justify-center items-center">
                     <img className="w-4/5 rounded-lg" src={user} />
+                </div>
+
+                <div>
+                    <AllPosts />
                 </div>
             </div>
         </section>
