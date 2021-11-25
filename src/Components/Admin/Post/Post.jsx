@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
 export const Post = () => {
-    const { post } = useUserContext();
+    const { posts } = useUserContext();
     const [title, setTitle] = useState ("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
@@ -21,8 +21,8 @@ export const Post = () => {
         console.log(image);
 
         //esto esta comentado por el momento para no hacer post de algo equivocado
-        // const posted = await post(title, description, image);
-        // setError(!posted);
+        const posted = await posts(title, description, image);
+        setError(!posted);
         
         setTitle("");
         setDescription("");
@@ -31,7 +31,7 @@ export const Post = () => {
 
 
     return (
-        <form onSubmit={postHandler} className="flex flex-col gap-y-5 p-6 w-3/5 bg-blue-50 shadow-lg">
+        <form onSubmit={postHandler} className="flex flex-col rounded gap-y-5 p-6 w-3/5 bg-blue-50 shadow-lg">
             <h2 className="uppercase text-black font-monserrat font-black text-4xl mb-5 text-center">Crear un post</h2>
             {
                 error && (<p className="w-full rounded p-4 text-center text-white font-roboto bg-red-600 select-none">

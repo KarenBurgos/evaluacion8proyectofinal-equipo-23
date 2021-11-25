@@ -61,11 +61,13 @@ export const UserProvider = (props) => {
     }, []);
 
     //no se si se debe utilizar usecallback o no, solo segui la logica de login
-    const post = useCallback((title, description, image) => {
+    const posts = useCallback((title, description, image) => {
+        let status = false;
         const postAsync = async () => {
-            let status = false;
             try {
-                const {message: messageRes} = await userService.createPost(token, title, description, image);
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                const {message: messageRes} = await userService.createPost(getToken(), title, description, image);
 
                 if (messageRes) {
                     status = true;
@@ -88,12 +90,12 @@ export const UserProvider = (props) => {
             try {
                 //token no ha cargado cuando se intenta correr
                 //se opto por usar getToken(), el cual llama el valor del localstorage
-                const {data} = await userService.getAllPost(getToken(), limit, page);
+                const {data, pages} = await userService.getAllPost(getToken(), limit, page);
                 
                 if (data) {
                     // console.log("userContext data:")
                     // console.log(data);
-                    return data;
+                    return {data, pages};
                 };
             }
             catch (error) {
@@ -112,11 +114,11 @@ export const UserProvider = (props) => {
                 //se opto por usar getToken(), el cual llama el valor del localstorage
                 
                 /////////////////
-                const {data} = await userService.getMyPost(getToken(), limit, page);
+                const {data, pages} = await userService.getMyPost(getToken(), limit, page);
                 if (data) {
                     // console.log("userContext data:")
                     // console.log(data);
-                    return data;
+                    return {data, pages};
                 };
             }
             catch (error) {
@@ -134,10 +136,10 @@ export const UserProvider = (props) => {
         user: user,
         login: login,
         logout: logout,
-        post: post,
+        posts: posts,
         myPost: myPost,
         allPost: allPost
-    }), [token, user, login, logout, post, myPost, allPost]);
+    }), [token, user, login, logout, posts, myPost, allPost]);
 
     return <UserContext.Provider value={value} {...props} />;
 };

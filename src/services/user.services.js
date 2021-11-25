@@ -54,7 +54,6 @@ services.getAllPost = async (token, limit = 10, page = 0) => {
     if (response.ok) {
         const data = await response.json();
         return data;
-        //return data.data;
     };
 
     return {};
@@ -72,8 +71,8 @@ services.getMyPost = async (token, limit = 15, page = 0) => {
 
     if (response.ok) {
         const data = await response.json();
+        console.log(data);
         return data;
-        // return data.data;
     };
 
     return {};
@@ -81,6 +80,8 @@ services.getMyPost = async (token, limit = 15, page = 0) => {
 
 //funcion para que el admin suba un post
 services.createPost = async (token, title, description, image) => {
+    console.log("token:");
+    console.log(token);
     const response = await fetch(`${BASE_URL}/post/create`, {
         method: "POST",
         headers: {
@@ -95,44 +96,9 @@ services.createPost = async (token, title, description, image) => {
     });
     
     const data = await response.json();
-    console.log(data);
+    return data;
+    //console.log(data);
 };
 
 
 export default services;
-
-
-//funciona en consola de buscador
-//develve data, limit, page, pages
-//para este caso interesa data.data
-/*
-getAllPost = async () => {
-    const response = await fetch(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwNjRjZmQ3MDRhZTMzN2Q1ZTEiLCJpYXQiOjE2Mzc3Nzg5NTksImV4cCI6MTYzODk4ODU1OX0.BaXocMbk2ZC3dKTiW5i3UyS0Zout1bD8sJYQS1vtXvQ`
-        }
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data.data;
-    };
-    return {};
-};
-
-getMyPost = async () => {
-    const response = await fetch(`https://posts-pw2021.herokuapp.com/api/v1/post/owned?limit=15&page=0`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwNjRjZmQ3MDRhZTMzN2Q1ZTEiLCJpYXQiOjE2Mzc3Nzg5NTksImV4cCI6MTYzODk4ODU1OX0.BaXocMbk2ZC3dKTiW5i3UyS0Zout1bD8sJYQS1vtXvQ`
-        }
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data.data;
-    };
-    return {};
-};
-*/
