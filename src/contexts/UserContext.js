@@ -85,6 +85,7 @@ export const UserProvider = (props) => {
         return postAsync();
     }, []);
 
+    //validaciones para traer todos los post o devolver error
     const allPost = useCallback( (limit, page) => {
         const allPostAsync = async () => {
             try {
@@ -107,6 +108,7 @@ export const UserProvider = (props) => {
         return allPostAsync();
     }, []);
     
+    //validaciones para traer los post del admin o devolver un error
     const myPost = useCallback( (limit, page) => {
         const myPostAsync = async () => {
             try {

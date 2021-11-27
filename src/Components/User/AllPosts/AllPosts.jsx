@@ -39,27 +39,27 @@ export const AllPosts = () => {
     }, [page]);
 
         const previousPage = () => {
-        console.log(`pagina actual:  ${page}`);
+        // console.log(`pagina actual:  ${page}`);
         if (page !== 0) {
             setPage((pageNumber) => pageNumber-1);
-            console.log(`pagina resultante:  ${page}`);
-            console.log(`pagina resultante alt:  ${page-1}`);
+            // console.log(`pagina resultante:  ${page}`);
+            // console.log(`pagina resultante alt:  ${page-1}`);
         }
-        else {
-            console.log("no se cambio de pagina")
-        }
+        // else {
+        //     console.log("no se cambio de pagina")
+        // }
     };
 
     const nextPage = () => {
-        console.log(`pagina actual:  ${page}`);
+        // console.log(`pagina actual:  ${page}`);
         if (page+1 < pages) {
             setPage((pageNumber) => pageNumber+1);
-            console.log(`pagina resultante:  ${page}`);
-            console.log(`pagina resultante alt:  ${page+1}`);
+            // console.log(`pagina resultante:  ${page}`);
+            // console.log(`pagina resultante alt:  ${page+1}`);
         }
-        else {
-            console.log("no se cambio de pagina")
-        }
+        // else {
+        //     console.log("no se cambio de pagina")
+        // }
     };
 
     return (
