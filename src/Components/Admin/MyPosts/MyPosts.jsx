@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import { PostCard } from "../../User/PostCard/PostCard";
 import { Button } from "../../User/Button/Button";
+import { Post } from "./../Post/Post"
 
 export const MyPosts = () => {
     const limit = 15;
@@ -64,6 +65,7 @@ export const MyPosts = () => {
 
     return (
         <div className="flex flex-col justify-center items-center p-6">
+            <h2 className="uppercase text-black font-monserrat font-black text-4xl text-center mt-10">Mis Posts</h2>
             {
                 error && (<p className="w-3/4 rounded p-4 text-center text-black font-roboto bg-blue-200 select-none">
                     No se encontró ningun post
@@ -71,11 +73,11 @@ export const MyPosts = () => {
             }
             {
                 posts.map((post) => {
-                    return  <PostCard key={post._id} post={post} />
+                    return <PostCard key={post._id} post={post} />
                 })
             }
 
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-evenly items-center">
                 <Button name="Página anterior" type="submit" onSubmit={previousPage} />
                 <div className="mt-6 mx-40 transition rounded border border-pink-500 duration-300 ease-in-out text-lg text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
                     {page}
