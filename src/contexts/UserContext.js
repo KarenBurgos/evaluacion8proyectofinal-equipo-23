@@ -131,7 +131,23 @@ export const UserProvider = (props) => {
 
         return myPostAsync();
     }, []);
-    
+
+    const like = ((_id) => {
+        const likeAsync = async () => {
+            try {
+                console.log("linea 138");
+                const response = await userService.giveAlike(getToken(),_id);
+                console.log(response);
+                return response;
+            }
+            catch (error) {
+                console.error(error);
+                console.log("Error in post");
+            }
+        };
+
+        return likeAsync();
+    });
 
     const value = useMemo(()=> ({
         token: token,
@@ -140,8 +156,9 @@ export const UserProvider = (props) => {
         logout: logout,
         posts: posts,
         myPost: myPost,
-        allPost: allPost
-    }), [token, user, login, logout, posts, myPost, allPost]);
+        allPost: allPost,
+        like: like
+    }), [token, user, login, logout, posts, myPost, allPost, like]);
 
     return <UserContext.Provider value={value} {...props} />;
 };
@@ -155,27 +172,3 @@ export const useUserContext = () => {
 
     return context;
 };
-
-
-//funciona en consola de buscador
-//develve data.data
-/*
-const myPost = () => {
-    const myPostAsync = async () => {
-        let status = false;
-        try {
-            const {data: dataRes} = await getAllPost();
-
-            if (dataRes) {
-                status = true;
-                return dataRes;
-            };
-        }
-        catch (error) {
-            return status;
-        }
-    };
-
-    return myPostAsync();
-};
-*/
