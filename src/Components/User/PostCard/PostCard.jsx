@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Button } from "../Button/Button";
 import { useUserContext } from "../../../contexts/UserContext";
+import { Edit } from "./Edit";
 
 //no se esta cargando correctamente
 export const PostCard = ({ post }) => {
     // console.log("postcard:")
     // console.log(post);
-    const { like } = useUserContext();
-    const { favorite } = useUserContext(); 
-    const { comment } = useUserContext();
-    const [error, setError] = useState(false);
     const [aComment, setDescription] = useState("");
-    const { _id, title, description, image, likes, comments} = post
+    const [error, setError] = useState(false);
+    const { edits, like, favorite, comment } = useUserContext();
+    const { _id, title, description, image, likes, comments } = post
 
     const onChange = (e, save) => {
         save(e.target.value)
@@ -82,6 +81,9 @@ export const PostCard = ({ post }) => {
                     }   
                     </div>
                 </div>
+            </div>
+            <div>
+                <Edit name="Editar el post" _id={_id} />
             </div>
 
 

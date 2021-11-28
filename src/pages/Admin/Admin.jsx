@@ -1,4 +1,3 @@
-import ADMIN from '../../assets/img/soyadmin-img.jpg';
 import { Logout } from '../../Components/User/Logout/Logout';
 import { Post } from '../../Components/Admin/Post/Post';
 import { MyPosts } from '../../Components/Admin/MyPosts/MyPosts';
@@ -6,16 +5,12 @@ import { MyPosts } from '../../Components/Admin/MyPosts/MyPosts';
 export default function Admin() {
 
     return (
-        <section>
+        <section className="bg-gradient-to-bl from-pink-100 to-indigo-100">
             <header className="flex flex-row justify-end items-center">
                 <Logout />
             </header>
             <div className="flex flex-col justify-around items-center p-6">
-                <Post />
-            </div>
-
-            <div className="flex justify-center my-5">
-                <img className="w-1/3" src={ADMIN} />
+                <Post name="Crear un post" />
             </div>
 
             <div>

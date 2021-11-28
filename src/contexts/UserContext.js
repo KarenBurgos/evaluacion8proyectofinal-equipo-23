@@ -85,6 +85,30 @@ export const UserProvider = (props) => {
         return postAsync();
     }, []);
 
+    const edits = useCallback((title, description, image, _id) => {
+        let status = false;
+        const editAsync = async () => {
+            try {
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                const {message: messageRes} = await userService.editPost(getToken(), title, description, image, _id);
+
+                if (messageRes) {
+                    status = true;
+                };
+            }
+            catch (error) {
+                console.error(error);
+                console.log("Error in edit");
+            }
+            finally {
+                return status;
+            }
+        };
+
+        return editAsync();
+    }, []);
+
     //validaciones para traer todos los post o devolver error
     const allPost = useCallback( (limit, page) => {
         const allPostAsync = async () => {
@@ -193,12 +217,14 @@ export const UserProvider = (props) => {
         login: login,
         logout: logout,
         posts: posts,
+        edits: edits,
         myPost: myPost,
         allPost: allPost,
         like: like,
         favorite: favorite,
-        comment: comment
-    }), [token, user, login, logout, posts, myPost, allPost, like, favorite, comment]);
+        comment: comment,
+        favorite: favorite
+    }), [token, user, login, logout, posts, edits, myPost, allPost, like, favorite,comment]);
 
     return <UserContext.Provider value={value} {...props} />;
 };

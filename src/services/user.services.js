@@ -79,10 +79,30 @@ services.getMyPost = async (token, limit = 15, page = 0) => {
 
 //funcion para que el admin suba un post
 services.createPost = async (token, title, description, image) => {
-    console.log("token:");
-    console.log(token);
+    // console.log("token:");
+    // console.log(token);
     const response = await fetch(`${BASE_URL}/post/create`, {
         method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            title: title,
+            description: description,
+            image: image
+        })
+    });
+    
+    const data = await response.json();
+    return data;
+    //console.log(data);
+};
+
+//funcion para que el admin edite un post
+services.editPost = async (token, title, description, image, _id) => {
+    const response = await fetch(`${BASE_URL}/post/update/${_id}`, {
+        method: "PUT",
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-type": "application/json"
