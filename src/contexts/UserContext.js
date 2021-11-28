@@ -149,6 +149,22 @@ export const UserProvider = (props) => {
         return likeAsync();
     });
 
+    const favorite = ((_id) => {
+        const favAsync = async () => {
+            try {
+                const response = await userService.giveFav(getToken(),_id);
+                console.log(response);
+                return response;
+            }
+            catch (error) {
+                console.error(error);
+                console.log("Error in post");
+            }
+        };
+
+        return favAsync();
+    });
+
     const value = useMemo(()=> ({
         token: token,
         user: user,
@@ -157,8 +173,9 @@ export const UserProvider = (props) => {
         posts: posts,
         myPost: myPost,
         allPost: allPost,
-        like: like
-    }), [token, user, login, logout, posts, myPost, allPost, like]);
+        like: like,
+        favorite: favorite
+    }), [token, user, login, logout, posts, myPost, allPost, like, favorite]);
 
     return <UserContext.Provider value={value} {...props} />;
 };
