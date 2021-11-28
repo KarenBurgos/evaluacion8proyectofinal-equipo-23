@@ -139,4 +139,25 @@ services.giveFav = async (token, _id) => {
     return {};
 };
 
+services.addComment = async (token, _id, description) => {
+    
+    const response = await fetch(`${BASE_URL}/post/comment/${_id}`, {
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            description: description,
+        })
+    });
+    
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }
+    return {};
+};
+
+
 export default services;

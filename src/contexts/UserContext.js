@@ -165,6 +165,28 @@ export const UserProvider = (props) => {
         return favAsync();
     });
 
+    const comment = useCallback( (_id, description) => {
+        const commentAsync = async () => {
+            try {
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                const response = await userService.addComment(getToken(), _id, description);
+                
+                if (response.ok) {
+                    // console.log("userContext data:")
+                    // console.log(data);
+                    return response;
+                };
+            }
+            catch (error) {
+                console.log("data undefined");
+                return data;
+            }
+        };
+
+        return commentAsync();
+    }, []);
+
     const value = useMemo(()=> ({
         token: token,
         user: user,
@@ -174,8 +196,9 @@ export const UserProvider = (props) => {
         myPost: myPost,
         allPost: allPost,
         like: like,
-        favorite: favorite
-    }), [token, user, login, logout, posts, myPost, allPost, like, favorite]);
+        favorite: favorite,
+        comment: comment
+    }), [token, user, login, logout, posts, myPost, allPost, like, favorite, comment]);
 
     return <UserContext.Provider value={value} {...props} />;
 };
