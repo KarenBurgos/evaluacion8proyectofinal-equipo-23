@@ -99,5 +99,27 @@ services.createPost = async (token, title, description, image) => {
     //console.log(data);
 };
 
+services.giveAlike = async (token, _id) => {
+    console.log("token:");
+    console.log(token);
+    console.log(_id);
+
+    const response = await fetch(`${BASE_URL}/post/like/${_id}`, {
+        
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    console.log("prueba2");
+
+    if(response.ok){
+        console.log("prueba");
+        const data = await response.json();
+        
+        return data;
+    }
+    return {};
+};
 
 export default services;
