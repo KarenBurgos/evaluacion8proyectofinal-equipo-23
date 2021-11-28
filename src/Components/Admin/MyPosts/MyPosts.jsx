@@ -60,7 +60,7 @@ export const MyPosts = () => {
         // else {
         //     console.log("no se cambio de pagina")
         // }
-    };
+    }; 
 
     return (
         <div className="flex flex-col justify-center items-center p-6">
@@ -80,7 +80,7 @@ export const MyPosts = () => {
                 <div className="mt-6 mx-40 transition rounded border border-pink-500 duration-300 ease-in-out text-lg text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
                     {page}
                 </div>
-                <Button name="Página siguiente" OnClick= {() => {nextPage}} />
+                <Button name="Página siguiente" type="submit" onSubmit={nextPage} />
             </div>
 
         </div>
