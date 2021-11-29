@@ -11,7 +11,7 @@ export const Logout = () => {
     }
 
     return (
-        <button onClick={logoutHandler} className=" m-4 transition rounded border border-pink-500 duration-300 ease-in-out text-sm text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
+        <button onClick={logoutHandler} className=" m-4 transition rounded border border-primary duration-300 ease-in-out text-sm text-extrabold uppercase bg-primary hover:bg-primary-dark py-2 px-4 text-gray-100">
             Log out
         </button>
     );

@@ -31,7 +31,7 @@ export const Edit = ({name, _id}) => {
 
 
     return (
-        <form onSubmit={editHandler} className="flex flex-col rounded gap-y-5 p-6 ">
+        <form onSubmit={editHandler} className="flex flex-col rounded gap-y-5 p-6 py-7">
             <h4 className="text-black font-monserrat font-black text-4xl mb-5 text-center">{name}</h4>
             {
                 error && (<p className="w-full rounded p-4 text-center text-white font-roboto bg-red-600 select-none">
@@ -40,26 +40,26 @@ export const Edit = ({name, _id}) => {
             }
             <input 
                 type="text" 
-                className="font-bold w-full text-gray-700 bg-gray-300 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                className="font-semibold w-full text-gray-700 bg-white focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
                 placeholder="Edita el titulo"
                 value={title}
                 onChange={(e) => onChange(e, setTitle)}
             />
             <input 
                 type="text" 
-                className="font-semibold w-full text-gray-700 bg-gray-200 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                className="font-semibold w-full text-gray-700 bg-white focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
                 placeholder="Edita la descripción"
                 value={description}
                 onChange={(e) => onChange(e, setDescription)}
             />
             <input 
                 type="text" 
-                className="font-semibold w-full text-gray-700 bg-gray-200 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
+                className="font-semibold w-full text-gray-700 bg-white focus:outline-none focus:ring focus:border-gray-600 p-3 rounded"
                 placeholder="Edita el url de la imagen"
                 value={image}
                 onChange={(e) => onChange(e, setImage)}
             />
-            <button className="mt-6 mx-40 transition rounded border border-pink-500 duration-300 ease-in-out text-lg text-extrabold uppercase bg-pink-500 hover:bg-pink-700 py-2 px-4 text-gray-100">
+            <button className="mt-6 mx-40 transition rounded border border-primary duration-300 ease-in-out text-lg text-extrabold uppercase bg-primary hover:bg-primary-dark py-2 px-4 text-gray-100">
                 Editar
             </button>
         </form>
