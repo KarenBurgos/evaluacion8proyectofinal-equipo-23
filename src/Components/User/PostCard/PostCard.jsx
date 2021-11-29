@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../Button/Button";
+import  { ButtonActive } from "../Button/ButtonActive";
 import { useUserContext } from "../../../contexts/UserContext";
 import { Edit } from "./Edit";
 
@@ -8,9 +9,12 @@ export const PostCard = ({ post }) => {
     // console.log("postcard:")
     // console.log(post);
     const [aComment, setDescription] = useState("");
+    
     const [error, setError] = useState(false);
-    const { edits, like, favorite, comment } = useUserContext();
-    const { _id, title, description, image, likes, comments } = post
+    const { edits, like, favorite, comment, activeApost } = useUserContext();
+    const { user, _id, title, description, image, likes, comments } = post
+    const [numLike, setNumLike] = useState(likes.length);
+    const [isLiked, setIsLiked] = useState(false);
 
     const onChange = (e, save) => {
         save(e.target.value)
@@ -25,15 +29,30 @@ export const PostCard = ({ post }) => {
 
         //esto esta comentado por el momento para no hacer post de algo equivocado
         const makeAcomment = await comment(_id, aComment);
-        setError(!makeAcomment);
+        setError(!makeAcomment);       
         
         setDescription("");
     }
-    
+
+    const giveAlike = () => {
+        like(_id);
+        if(isLiked) setNumLike(numLike - 1);
+	        else setNumLike(numLike + 1);
+	    setIsLiked(!isLiked);
+  
+    }
+     const giveAcomment = () => {
+
+     }
+
     return (
         <div className="flex flex-col rounded gap-y-5 p-6 my-10 w-3/5 bg-blue-50 shadow-lg">
             <div className="font-bold w-full h-auto text-gray-700 bg-gray-300 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded">
+                {user.username}
                 {title}
+            </div>
+            <div>
+                <ButtonActive name="ocultar" type="submit" onSubmit={() => {activeApost(_id)}}/>
             </div>
             
             <div className="font-semibold w-full h-auto text-gray-700 bg-gray-200 focus:outline-none focus:ring focus:border-gray-600 p-3 rounded">
@@ -45,8 +64,11 @@ export const PostCard = ({ post }) => {
             </div>
 
             <div className="flex md:flex-1 space-x-4 items-center justify-start mt-2">
-                <Button name="Like" type="submit" onSubmit= {() => {like(_id)}}/>
-                <div>likes: {likes.length}</div>
+                <Button name="Like" type="submit" 
+                    onSubmit= {() => { giveAlike() }}
+                    />
+                    <p>likes: {numLike}</p>
+                        
                 <Button name="Favorito" type="submit" onSubmit={() => {favorite(_id)}}/>
             </div>
 

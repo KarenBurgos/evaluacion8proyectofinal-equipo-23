@@ -192,10 +192,29 @@ export const UserProvider = (props) => {
     const comment = useCallback( (_id, description) => {
         const commentAsync = async () => {
             try {
-                //token no ha cargado cuando se intenta correr
-                //se opto por usar getToken(), el cual llama el valor del localstorage
                 const response = await userService.addComment(getToken(), _id, description);
                 
+                if (response.ok) {
+                    return response;
+                };
+            }
+            catch (error) {
+                console.log("data undefined");
+                return data;
+            }
+        };
+        return commentAsync();
+    }, []);
+
+    const activeApost = ( (_id) => {
+        const activeAPostAsync = async () => {
+            console.log("antes de context try");
+            try {
+                console.log("antes de context en try");
+                //token no ha cargado cuando se intenta correr
+                //se opto por usar getToken(), el cual llama el valor del localstorage
+                const response = await userService.active(getToken(), _id);
+                console.log(response);
                 if (response.ok) {
                     // console.log("userContext data:")
                     // console.log(data);
@@ -208,8 +227,8 @@ export const UserProvider = (props) => {
             }
         };
 
-        return commentAsync();
-    }, []);
+        return activeAPostAsync();
+    });
 
     const value = useMemo(()=> ({
         token: token,
@@ -223,8 +242,9 @@ export const UserProvider = (props) => {
         like: like,
         favorite: favorite,
         comment: comment,
-        favorite: favorite
-    }), [token, user, login, logout, posts, edits, myPost, allPost, like, favorite,comment]);
+        favorite: favorite,
+        activeApost: activeApost
+    }), [token, user, login, logout, posts, edits, myPost, allPost, like, favorite,comment, activeApost]);
 
     return <UserContext.Provider value={value} {...props} />;
 };

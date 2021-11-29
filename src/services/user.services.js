@@ -179,5 +179,21 @@ services.addComment = async (token, _id, description) => {
     return {};
 };
 
+services.active = async (token, _id) => {
+    console.log("antes de servicios");
+    const response = await fetch(`${BASE_URL}/post/toggle/${_id}`, {
+        
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    console.log("despues de servicios");
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }
+    return {};
+};
 
 export default services;

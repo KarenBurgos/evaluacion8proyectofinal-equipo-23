@@ -6,6 +6,16 @@ module.exports = {
       'roboto': ['Roboto', 'sans-serif'],
       'monserrat': ['Montserrat', 'san-serif'],
     },
+    backgroundColor: theme => ({
+      ...theme('colors'),
+      'primary': '#E48F72',
+      'primary-dark': '#DE7450',
+      'secondary': '#ffed4a',
+      'danger': '#e3342f',
+     }),
+     backgroundImage: {
+      'hero-pattern': "url('../src/assets/img/prueba.jpg')",
+     }
   },
   variants: {
     extend: {},
