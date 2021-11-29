@@ -156,12 +156,48 @@ export const UserProvider = (props) => {
         return myPostAsync();
     }, []);
 
+    const allFav = () => {
+        const allFavAsync = async () => {
+            try {
+                const data = await userService.getAllFav(getToken());
+
+                if (data) {
+                    console.log(data);
+                    return data;
+                };
+            }
+            catch (error) {
+                console.log("data undefined");
+                return data;
+            }
+        };
+        return allFavAsync();
+    };
+
+    const One = (_id) => {
+        const OneAsync = async () =>{
+            try{
+                const response = await userService.getOne(getToken(), _id);
+    
+                
+                if (response) {
+                    return response;
+                };
+
+            }
+            catch (error) {
+                console.log("post notfound");
+                /*return response;*/
+            }
+        };
+        return OneAsync();
+    };
+
     const like = ((_id) => {
         const likeAsync = async () => {
             try {
-                console.log("linea 138");
                 const response = await userService.giveAlike(getToken(),_id);
-                console.log(response);
+                //console.log(response);
                 return response;
             }
             catch (error) {
@@ -177,7 +213,7 @@ export const UserProvider = (props) => {
         const favAsync = async () => {
             try {
                 const response = await userService.giveFav(getToken(),_id);
-                console.log(response);
+                // console.log(response);
                 return response;
             }
             catch (error) {
@@ -239,12 +275,13 @@ export const UserProvider = (props) => {
         edits: edits,
         myPost: myPost,
         allPost: allPost,
+        allFav: allFav,
+        One: One,
         like: like,
         favorite: favorite,
         comment: comment,
-        favorite: favorite,
         activeApost: activeApost
-    }), [token, user, login, logout, posts, edits, myPost, allPost, like, favorite,comment, activeApost]);
+    }), [token, user, login, logout, posts, edits, myPost, allPost, allFav, One, like, favorite,comment, activeApost]);
 
     return <UserContext.Provider value={value} {...props} />;
 };

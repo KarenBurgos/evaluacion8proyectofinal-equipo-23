@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import { PostCard } from "../../User/PostCard/PostCard";
 import { Button } from "../../User/Button/Button";
-import { Post } from "./../Post/Post"
 
 export const MyPosts = () => {
     const limit = 15;

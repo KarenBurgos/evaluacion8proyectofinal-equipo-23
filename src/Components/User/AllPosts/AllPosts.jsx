@@ -64,6 +64,7 @@ export const AllPosts = () => {
 
     return (
         <div className="flex flex-col justify-center items-center p-6">
+            <h2 className="uppercase text-black font-monserrat font-black text-4xl text-center mt-10">Todos los post</h2>
             {
                 error && (<p className="w-3/4 rounded p-4 text-center text-black font-roboto bg-blue-200 select-none">
                     No se encontró ningun post
