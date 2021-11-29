@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
-import { PostCard } from "../../User/PostCard/PostCard";
+import { GetOne } from "./GetOne";
 
 export const AllFav = () => {
 
     const {allFav} = useUserContext();
-    const [posts, setPosts] = useState([]);
+    const [id, setId] = useState([]);
     const [error, setError] = useState(false);
 
     useEffect ( () => {
         const fetchFav = async () => {
            try {
-               const allFavoritePosts = await allFav();
+               const OneId = await allFav();
 
-               if (allFavoritePosts.length == 0) {
+               if (OneId.length == 0) {
                    setError(true);
                }
                else {
-                   setPosts(allFavoritePosts);
+                   setId(OneId);
                };
                
             }
@@ -28,6 +28,7 @@ export const AllFav = () => {
     };
         fetchFav();
     }, []);
+
 
 
 
@@ -42,7 +43,12 @@ export const AllFav = () => {
                 </p>)
             }
 
-
+            {
+                id.map((id) => {
+                    return  <GetOne  id={id} />
+                })
+            }
+            
     
         </div>
     

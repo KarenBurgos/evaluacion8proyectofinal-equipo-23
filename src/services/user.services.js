@@ -157,6 +157,24 @@ services.giveAlike = async (token, _id) => {
     return {};
 };
 
+
+services.getOne = async (token, _id) => {
+    const response = await fetch(`${BASE_URL}/post/one/${_id}`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }
+    return {};
+
+};
+
+
 services.giveFav = async (token, _id) => {
 
     const response = await fetch(`${BASE_URL}/post/fav/${_id}`, {

@@ -174,6 +174,25 @@ export const UserProvider = (props) => {
         return allFavAsync();
     };
 
+    const One = (_id) => {
+        const OneAsync = async () =>{
+            try{
+                const response = await userService.getOne(getToken(), _id);
+    
+                
+                if (response) {
+                    return response;
+                };
+
+            }
+            catch (error) {
+                console.log("post notfound");
+                /*return response;*/
+            }
+        };
+        return OneAsync();
+    };
+
     const like = ((_id) => {
         const likeAsync = async () => {
             try {
@@ -238,11 +257,12 @@ export const UserProvider = (props) => {
         myPost: myPost,
         allPost: allPost,
         allFav: allFav,
+        One: One,
         like: like,
         favorite: favorite,
         comment: comment,
         favorite: favorite
-    }), [token, user, login, logout, posts, edits, myPost, allPost, allFav, like, favorite,comment]);
+    }), [token, user, login, logout, posts, edits, myPost, allPost, allFav, One, like, favorite,comment]);
 
     return <UserContext.Provider value={value} {...props} />;
 };
