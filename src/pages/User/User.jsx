@@ -29,7 +29,9 @@ export default function User() {
                 <div className="w-4/5 lg:w-1/2 flex justify-center items-center">
                     <img className="w-4/5 rounded-lg" src={user} />
                 </div>
-
+                <div>
+                    <AllFav />
+                </div>
                 <div>
                     <AllPosts />
                 </div>

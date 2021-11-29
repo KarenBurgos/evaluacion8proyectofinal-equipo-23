@@ -59,6 +59,21 @@ services.getAllPost = async (token, limit = 10, page = 0) => {
     return {};
 };
 
+services.getAllFav = async (token) => {
+    const response = await fetch(`${BASE_URL}/post/fav`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        return data;
+    };
+    return{};
+};
+
 //funcion que se encarga de traer los post del admin
 services.getMyPost = async (token, limit = 15, page = 0) => {
     const response = await fetch(`${BASE_URL}/post/owned?limit=${limit}&page=${page}`, {
