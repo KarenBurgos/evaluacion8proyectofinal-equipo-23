@@ -156,13 +156,14 @@ export const UserProvider = (props) => {
         return myPostAsync();
     }, []);
 
-    const allFav = (() => {
+    const allFav = () => {
         const allFavAsync = async () => {
             try {
-                const {data} = await userService.getAllFav(getToken());
+                const data = await userService.getAllFav(getToken());
 
                 if (data) {
-                    return {data};
+                    console.log(data);
+                    return data;
                 };
             }
             catch (error) {
@@ -171,14 +172,13 @@ export const UserProvider = (props) => {
             }
         };
         return allFavAsync();
-    }, []);
+    };
 
     const like = ((_id) => {
         const likeAsync = async () => {
             try {
-                console.log("linea 138");
                 const response = await userService.giveAlike(getToken(),_id);
-                console.log(response);
+                //console.log(response);
                 return response;
             }
             catch (error) {
@@ -194,7 +194,7 @@ export const UserProvider = (props) => {
         const favAsync = async () => {
             try {
                 const response = await userService.giveFav(getToken(),_id);
-                console.log(response);
+                // console.log(response);
                 return response;
             }
             catch (error) {

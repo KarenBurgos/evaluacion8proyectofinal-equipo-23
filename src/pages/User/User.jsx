@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import user from '../../assets/img/icono-user.jpg'
 import { Logout } from '../../Components/User/Logout/Logout'
 import { AllPosts } from './../../Components/User/AllPosts/AllPosts'
+import { AllFav } from "./../../Components/User/AllPosts/AllFav"
 
 export default function User() {
     const navigate = useNavigate()
